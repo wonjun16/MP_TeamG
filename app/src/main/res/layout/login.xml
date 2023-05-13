@@ -27,6 +27,7 @@
         android:id="@+id/edit_text_id"
         android:layout_width="245dp"
         android:layout_height="wrap_content"
+        android:inputType="text"
         android:layout_marginBottom="5dp" />
 
 
