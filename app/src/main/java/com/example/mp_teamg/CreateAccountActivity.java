@@ -28,7 +28,7 @@ public class CreateAccountActivity  extends AppCompatActivity {
         mEmailEditText = findViewById(R.id.edit_text_email);
         mContactEditText = findViewById(R.id.edit_text_contact);
 
-        Button mCreateAccountButton = findViewById(R.id.button_create_account);
+        mCreateAccountButton = findViewById(R.id.button_create_account);
 
 
     }
