@@ -6,8 +6,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-
-
+    <!-- 아아디 -->
     <TextView
         android:id="@+id/text_view_id_input"
         android:layout_width="245dp"
@@ -22,6 +21,7 @@
         android:inputType="text"
         android:layout_marginBottom="5dp" />
 
+    <!-- 비밀번호 -->
     <TextView
         android:id="@+id/text_view_pw_input"
         android:layout_width="245dp"
@@ -37,7 +37,7 @@
         android:layout_marginBottom="5dp"
         android:drawableEnd="@drawable/ic_visibility" />
 
-
+    <!-- 비밀번호 재확인 -->
     <TextView
         android:id="@+id/text_view_pw_check"
         android:layout_width="245dp"
@@ -53,9 +53,7 @@
         android:layout_marginBottom="5dp"
         android:drawableEnd="@drawable/ic_visibility" />
 
-
-
-
+    <!-- 이메일 -->
     <TextView
         android:id="@+id/text_view_email"
         android:layout_width="245dp"
@@ -67,12 +65,11 @@
         android:id="@+id/edit_text_email"
         android:layout_width="245dp"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:layout_marginBottom="5dp"
-        android:drawableEnd="@drawable/ic_visibility" />
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="5dp"/>
 
 
-
+    <!-- 연락처 -->
 
     <TextView
         android:id="@+id/text_view_contact"
@@ -85,19 +82,15 @@
         android:id="@+id/edit_text_contact"
         android:layout_width="245dp"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:layout_marginBottom="5dp"
-        android:drawableEnd="@drawable/ic_visibility" />
+        android:inputType="phone"
+        android:layout_marginBottom="5dp" />
 
-
-
+    <!-- 가입버튼 -->
     <Button
         android:id="@+id/button_create_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="회원가입"
         android:paddingHorizontal="20dp"/>
-
-
 
 </LinearLayout>
