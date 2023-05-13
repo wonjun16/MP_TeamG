@@ -49,6 +49,7 @@
 
         <activity android:name=".LoginActivity" />
 
+        <activity android:name=".CreateAccountActivity" />
 
     </application>
 
