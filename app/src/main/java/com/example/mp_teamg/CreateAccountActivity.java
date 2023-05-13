@@ -1,6 +1,8 @@
 package com.example.mp_teamg;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -30,6 +32,31 @@ public class CreateAccountActivity  extends AppCompatActivity {
 
         mCreateAccountButton = findViewById(R.id.button_create_account);
 
+        mCreateAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 입력한 값이 맞는지 확인하는 코드 부분
+                String username = mIdEditText.getText().toString();
+                String password = mPasswordEditText.getText().toString();
+                String email = mEmailEditText.getText().toString();
+                String contact = mContactEditText.getText().toString();
+
+
+                // 로그인 액티비티로 넘어가는 코드
+                Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
+                startActivity(intent);
+
+/*
+                if (username.isEmpty() || password.isEmpty()) {
+                } else if (!isValidCredentials(username, password)) {
+                    // mErrorTextView.setVisibility(View.VISIBLE);
+                    // mErrorTextView.setText(R.string.error_invalid_credentials);
+                } else {
+                    // 로그인 처리
+                }
+ */
+            }
+        });
 
     }
 
