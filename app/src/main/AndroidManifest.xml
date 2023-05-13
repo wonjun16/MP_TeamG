@@ -13,6 +13,13 @@
         android:theme="@style/Theme.MP_TeamG"
         tools:targetApi="31">
         <activity
+            android:name=".Profile"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".detail"
             android:exported="false" />
         <activity
@@ -21,6 +28,13 @@
         <activity
             android:name=".intlist"
             android:exported="false" />
+        <activity
+            android:name=".NoticePage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
