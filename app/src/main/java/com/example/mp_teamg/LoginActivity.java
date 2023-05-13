@@ -2,13 +2,12 @@ package com.example.mp_teamg;
 
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,8 +46,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // 패스워드 보이기/숨기기 버튼 등록
-        ImageView passwordToggle = findViewById(R.id.ic_visibility);
+        //ImageView passwordToggle = findViewById(R.id.ic_visibility);
 
+        /*
         // 패스워드 토글 아이콘 클릭 시 패스워드 보이기/숨기기
         passwordToggle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,16 +65,31 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+         */
 
 
 
+        /*
 
 
+        passwordVisibilityToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPasswordEditText.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    mPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    // passwordVisibilityToggle.setImageResource(R.drawable.ic_password_visibility_off);
+                } else {
+                    mPasswordEditText.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    // passwordVisibilityToggle.setImageResource(R.drawable.ic_password_visibility);
+                }
+            }
+        });
 
-    }
+         */
 
-    //private boolean isValidCredentials(String username, String password) {
+        //private boolean isValidCredentials(String username, String password) {
         // 유효한 로그인 정보인지 검사
         //return username.equals("username") && password.equals("password");
-    //}
+        //}
+    }
 }
