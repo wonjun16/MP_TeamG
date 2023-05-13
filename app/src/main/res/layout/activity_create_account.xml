@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+
+    <TextView
+        android:id="@+id/text_view_id_input"
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
+        android:text="아이디 *"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/edit_text_id_input"
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:layout_marginBottom="5dp" />
+
+    <TextView
+        android:id="@+id/text_view_pw_input"
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
+        android:text="비밀번호 *"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/edit_text_pw"
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:layout_marginBottom="5dp"
+        android:drawableEnd="@drawable/ic_visibility" />
+
+
+    <TextView
+        android:id="@+id/text_view_pw"
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
+        android:text="비밀번호 재확인 *"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/text_view_pw"
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
+        android:text="이메일 주소 *"
+        android:textSize="20dp" />
+
+
+    <TextView
+        android:id="@+id/text_view_pw"
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
+        android:text="연락처 *"
+        android:textSize="20dp" />
+
+
+    <Button
+        android:id="@+id/button_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="회원가입"
+        android:paddingHorizontal="20dp"/>
+
+
+
+</LinearLayout>

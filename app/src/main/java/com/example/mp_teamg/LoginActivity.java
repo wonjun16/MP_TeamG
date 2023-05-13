@@ -1,13 +1,10 @@
 package com.example.mp_teamg;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,22 +13,32 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mIdEditText;
     private EditText mPasswordEditText;
     private Button mLoginButton;
-    private TextView mErrorTextView;
+
+    private Button mRegisterButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.activity_login);
 
         mIdEditText = findViewById(R.id.edit_text_id);
         mPasswordEditText = findViewById(R.id.edit_text_pw);
         mLoginButton = findViewById(R.id.button_login);
+        mRegisterButton = findViewById(R.id.button_register);
 
+        //로그인 버튼 관련 기능
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 입력한 값이 맞는지 확인하는 코드 부분
                 String username = mIdEditText.getText().toString();
                 String password = mPasswordEditText.getText().toString();
+
+                // 메인 액티비티로 넘어가는 코드
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+
 /*
                 if (username.isEmpty() || password.isEmpty()) {
                 } else if (!isValidCredentials(username, password)) {
@@ -41,6 +48,15 @@ public class LoginActivity extends AppCompatActivity {
                     // 로그인 처리
                 }
  */
+            }
+        });
+
+        // 회원가입 버튼 관련 기능
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
+               startActivity(intent);
             }
         });
 
