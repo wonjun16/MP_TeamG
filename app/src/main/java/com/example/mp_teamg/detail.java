@@ -213,7 +213,7 @@ public class detailActivity extends AppCompatActivity {
                 jsonArray = new JSONArray(result);
 
 // custom_comment 를 불러오기 위한 객체
-                LayoutInflater layoutInflater = LayoutInflater.from(DetailActivity.this);
+                LayoutInflater layoutInflater = LayoutInflater.from(detailActivity.this);
 
                 for(int i=0;i<jsonArray.length();i++){
 
@@ -244,7 +244,7 @@ public class detailActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             String board_seq = params[0];
-            String server_url = "http://15.164.252.136/load_cmt.php";
+            String server_url = "http://15.164.252.136/load_cmt.php"; //수정
 
 
             URL url;
