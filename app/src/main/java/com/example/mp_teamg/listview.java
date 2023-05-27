@@ -48,13 +48,13 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.activity_listview);
 
 // LoginActivity 에서 넘긴 userid 값 받기
         userid = getIntent().getStringExtra("userid");
 
 // 컴포넌트 초기화
-        listView = findViewById(R.id.listView);
+        listView = findViewById(R.id.listView_list);
 
 // listView 를 클릭했을 때 이벤트 추가
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,7 +65,7 @@ public class ListActivity extends AppCompatActivity {
                 Toast.makeText(ListActivity.this, adapterView.getItemAtPosition(i)+ " 클릭", Toast.LENGTH_SHORT).show();
 
 // 게시물의 번호와 userid를 가지고 DetailActivity 로 이동
-                Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+                Intent intent = new Intent(ListActivity.this, detailActivity.class);
                 intent.putExtra("board_seq", seqList.get(i));
                 intent.putExtra("userid", userid);
                 startActivity(intent);
