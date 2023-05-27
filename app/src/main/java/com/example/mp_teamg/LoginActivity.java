@@ -1,5 +1,7 @@
 package com.example.mp_teamg;
 
+import static java.lang.Boolean.FALSE;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -52,8 +54,12 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Admin : Logged in", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                } else if (username.equals(getAdmin_id()) && password.equals(getAdmin_pw())==FALSE) {
+                    Toast.makeText(LoginActivity.this, "Log in failed : Wrong Password", Toast.LENGTH_SHORT).show();
+                } else if (username.equals(getAdmin_id()) == FALSE && password.equals(getAdmin_pw())) {
+                    Toast.makeText(LoginActivity.this, "Log in failed : Wrong Username", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Log in failed : wrong value", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Log in failed : Empty Values", Toast.LENGTH_SHORT).show();
                 }
 
                 /*
