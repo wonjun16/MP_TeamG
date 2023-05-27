@@ -51,6 +51,8 @@
 
         <activity android:name=".CreateAccountActivity" />
 
+        <activity android:name=".MainActivity" />
+
     </application>
 
 </manifest>

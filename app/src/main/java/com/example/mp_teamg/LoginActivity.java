@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import javax.security.auth.login.LoginException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -15,6 +18,10 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLoginButton;
 
     private Button mRegisterButton;
+
+    private String admin_id;
+    private String admin_pw;
+
 
 
     @Override
@@ -27,19 +34,29 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.button_login);
         mRegisterButton = findViewById(R.id.button_register);
 
+        admin_id = (String) "admin";
+        admin_pw = (String) "1234";
+
+
         //로그인 버튼 관련 기능
         mLoginButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 // 입력한 값이 맞는지 확인하는 코드 부분
                 String username = mIdEditText.getText().toString();
                 String password = mPasswordEditText.getText().toString();
 
-                // 메인 액티비티로 넘어가는 코드
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                if (username.equals(getAdmin_id()) && password.equals(getAdmin_pw()) ) {
+                    // 메인 액티비티로 넘어가는 코드
+                    Toast.makeText(LoginActivity.this, "Admin : Logged in", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(LoginActivity.this, "Log in failed : wrong value", Toast.LENGTH_SHORT).show();
+                }
 
-/*
+                /*
                 if (username.isEmpty() || password.isEmpty()) {
                 } else if (!isValidCredentials(username, password)) {
                     // mErrorTextView.setVisibility(View.VISIBLE);
@@ -51,6 +68,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+
         // 회원가입 버튼 관련 기능
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +78,9 @@ public class LoginActivity extends AppCompatActivity {
                startActivity(intent);
             }
         });
+
+
+
 
 
         // 패스워드 보이기/숨기기 버튼 등록
@@ -108,4 +130,13 @@ public class LoginActivity extends AppCompatActivity {
         //return username.equals("username") && password.equals("password");
         //}
     }
+
+    public String getAdmin_id() {
+        return admin_id;
+    }
+
+    public String getAdmin_pw() {
+        return admin_pw;
+    }
+
 }
