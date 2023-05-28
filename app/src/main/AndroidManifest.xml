@@ -24,7 +24,7 @@
             android:exported="false" />
         <activity
             android:name=".listview"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".intlist"
             android:exported="false" />

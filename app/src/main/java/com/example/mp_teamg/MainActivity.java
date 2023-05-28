@@ -2,8 +2,14 @@ package com.example.mp_teamg;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -36,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
         tableLayout = (TableLayout) findViewById(R.id.table);
         tableRow = new TableRow[100];
-        rowIndex = 0;
+        for(int i=0; i<100; i++)
+            tableRow[i] = new TableRow(MainActivity.this);
+        rowIndex = -1;
         boardList = new ArrayList<>();
 
         //관리자로 로그인 시 floating menu 활성화
@@ -65,16 +73,36 @@ public class MainActivity extends AppCompatActivity {
 
     //사용자별 게시판으로 이어지는 원형 버튼 생성
     private void createBoard() {
+        //table row 마다 margintop : 70 / circleButton 크기 : 250, 250
+        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(250, 250);
+        layoutParams.setMargins(0, 70, 0, 0);
+
         CircleButton circleButton = new CircleButton(MainActivity.this);
+        circleButton.setImageResource(R.drawable.silhouette);
+        circleButton.setColorFilter(Color.WHITE);
+        circleButton.setColor(Color.GRAY);
         boardList.add(circleButton);
-        if (rowIndex + 3 <= boardList.size())
+
+        circleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, listview.class);
+                startActivity(intent);
+            }
+        });
+
+        //table row가 필요할때마다 추가
+        if (boardList.size() % 3 == 1){
             rowIndex += 1;
-        tableRow[rowIndex].addView(circleButton);
-        if (boardList.size() % 3 == 0)
-            tableLayout.addView(tableRow[rowIndex]);
+            tableLayout.addView(tableRow[rowIndex], layoutParams);
+        }
+
+        tableRow[rowIndex].addView(circleButton, layoutParams);
     }
 
     private void deleteBoard() {
 
     }
+
+
 }
