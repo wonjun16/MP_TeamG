@@ -84,6 +84,13 @@
             app:fab_size="mini"
             app:fab_title="delete board"/>
 
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/logoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_size="mini"
+            app:fab_title="delete board"/>
+
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
