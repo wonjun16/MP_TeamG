@@ -53,10 +53,16 @@ public class LoginActivity extends AppCompatActivity {
                 String username = mIdEditText.getText().toString();
                 String password = mPasswordEditText.getText().toString();
 
-                if (username.equals(getAdmin_id()) && password.equals(getAdmin_pw()) ) {
+                if ((username.equals(getAdmin_id()) && password.equals(getAdmin_pw())) || (username.equals(getClient_id()) && password.equals(getAdmin_pw())) ) {
                     // 메인 액티비티로 넘어가는 코드
                     Toast.makeText(LoginActivity.this, "Admin : Logged in", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    // 로그인 액티비티에서 메인 액티비티로 인텐트 전달
+
+                    intent.putExtra("username", username); // 아이디 정보 전달
+                    intent.putExtra("password", password); // 패스워드 정보 전달
+                    startActivity(intent);
+
                     startActivity(intent);
                 } else if (username.equals(getAdmin_id()) && password.equals(getAdmin_pw())==FALSE) {
                     Toast.makeText(LoginActivity.this, "Log in failed : Wrong Password", Toast.LENGTH_SHORT).show();
@@ -163,10 +169,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public String getClient_id() {
-        return admin_pw;
+        return client_id;
     }
     public String getClient_pw() {
-        return admin_pw;
+        return client_pw;
     }
 
 }
