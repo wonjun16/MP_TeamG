@@ -2,6 +2,7 @@ package com.example.mp_teamg;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -22,10 +23,12 @@ import at.markushi.ui.CircleButton;
 
 public class MainActivity extends AppCompatActivity {
 
+    //관리자 메뉴
     FloatingActionsMenu floatingMenu;
     FloatingActionButton plusBtn;
     FloatingActionButton deleteBtn;
 
+    //board 동적으로 생성을 위한 변수
     TableLayout tableLayout;
     TableRow tableRow[];
     int rowIndex;
@@ -104,5 +107,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //primary id로 어느 사람에게 연결될건지 결정
+    protected class MyCircleButton extends CircleButton{
+        int primary_id;
 
+        public MyCircleButton(Context c, int id){
+            super(c);
+            primary_id = id;
+        }
+    }
 }
