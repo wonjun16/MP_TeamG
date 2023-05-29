@@ -23,6 +23,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private String admin_id;
     private String admin_pw;
+    private String client_id;
+    private String client_pw;
 
 
 
@@ -39,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         admin_id = (String) "admin";
         admin_pw = (String) "1234";
 
+        client_id = (String) "client";
+        client_pw = (String) "1234";
 
         //로그인 버튼 관련 기능
         mLoginButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +61,19 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (username.equals(getAdmin_id()) && password.equals(getAdmin_pw())==FALSE) {
                     Toast.makeText(LoginActivity.this, "Log in failed : Wrong Password", Toast.LENGTH_SHORT).show();
                 } else if (username.equals(getAdmin_id()) == FALSE && password.equals(getAdmin_pw())) {
+                    Toast.makeText(LoginActivity.this, "Log in failed : Wrong Username", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Log in failed : Empty Values", Toast.LENGTH_SHORT).show();
+                }
+
+                if (username.equals(getClient_id()) && password.equals(getClient_pw()) ) {
+                    // 메인 액티비티로 넘어가는 코드
+                    Toast.makeText(LoginActivity.this, "Admin : Logged in", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else if (username.equals(getClient_id()) && password.equals(getClient_pw())==FALSE) {
+                    Toast.makeText(LoginActivity.this, "Log in failed : Wrong Password", Toast.LENGTH_SHORT).show();
+                } else if (username.equals(getClient_id()) == FALSE && password.equals(getClient_pw())) {
                     Toast.makeText(LoginActivity.this, "Log in failed : Wrong Username", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(LoginActivity.this, "Log in failed : Empty Values", Toast.LENGTH_SHORT).show();
@@ -142,6 +159,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public String getAdmin_pw() {
+        return admin_pw;
+    }
+
+    public String getClient_id() {
+        return admin_pw;
+    }
+    public String getClient_pw() {
         return admin_pw;
     }
 
