@@ -2,14 +2,21 @@ package com.example.mp_teamg;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CreateAccountActivity  extends AppCompatActivity {
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+public class CreateAccountActivity  extends AppCompatActivity {
 
     private EditText mIdEditText;
     private EditText mPasswordEditText;
@@ -19,45 +26,60 @@ public class CreateAccountActivity  extends AppCompatActivity {
 
     private Button mCreateAccountButton;
 
+    private FirebaseAuth mAuth;
+    private String tag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        mIdEditText = findViewById(R.id.edit_text_id_input);
-        mPasswordEditText = findViewById(R.id.edit_text_pw);
-        mPasswordCheckEditText = findViewById(R.id.edit_text_pw_check);
-        mEmailEditText = findViewById(R.id.edit_text_email);
-        mContactEditText = findViewById(R.id.edit_text_contact);
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        tag = "계정생성";
+
+        mIdEditText = (EditText)findViewById(R.id.edit_text_id_input);
+        mPasswordEditText = (EditText)findViewById(R.id.edit_text_pw);
+        mPasswordCheckEditText = (EditText)findViewById(R.id.edit_text_pw_check);
+        mEmailEditText = (EditText)findViewById(R.id.edit_text_email);
+        mContactEditText = (EditText)findViewById(R.id.edit_text_contact);
 
         mCreateAccountButton = findViewById(R.id.button_create_account);
 
         mCreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 입력한 값이 맞는지 확인하는 코드 부분
-                String username = mIdEditText.getText().toString();
-                String password = mPasswordEditText.getText().toString();
-                String email = mEmailEditText.getText().toString();
-                String contact = mContactEditText.getText().toString();
-
+                // 계정 생성
+                createAccount();
 
                 // 로그인 액티비티로 넘어가는 코드
                 Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
                 startActivity(intent);
-
-/*
-                if (username.isEmpty() || password.isEmpty()) {
-                } else if (!isValidCredentials(username, password)) {
-                    // mErrorTextView.setVisibility(View.VISIBLE);
-                    // mErrorTextView.setText(R.string.error_invalid_credentials);
-                } else {
-                    // 로그인 처리
-                }
- */
             }
         });
 
     }
 
+    private void createAccount(){
+        String email = mIdEditText.getText().toString();
+        String password = mPasswordEditText.getText().toString();
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(tag, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            //updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(tag, "createUserWithEmail:failure", task.getException());
+                            //updateUI(null);
+                        }
+                    }
+                });
+    }
 }
