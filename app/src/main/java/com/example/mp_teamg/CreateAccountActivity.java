@@ -15,18 +15,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CreateAccountActivity  extends AppCompatActivity {
 
     private EditText mIdEditText;
     private EditText mPasswordEditText;
     private EditText mPasswordCheckEditText;
-    private EditText mEmailEditText;
-    private EditText mContactEditText;
+    private EditText mNameEditText;
+    private EditText mPhoneEditText;
 
     private Button mCreateAccountButton;
 
     private FirebaseAuth mAuth;
+
+    FirebaseFirestore db;
+
     private String tag;
 
     @Override
@@ -37,13 +41,15 @@ public class CreateAccountActivity  extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
+        db = FirebaseFirestore.getInstance();
+
         tag = "계정생성";
 
         mIdEditText = (EditText)findViewById(R.id.edit_text_id_input);
         mPasswordEditText = (EditText)findViewById(R.id.edit_text_pw);
         mPasswordCheckEditText = (EditText)findViewById(R.id.edit_text_pw_check);
-        mEmailEditText = (EditText)findViewById(R.id.edit_text_email);
-        mContactEditText = (EditText)findViewById(R.id.edit_text_contact);
+        mNameEditText = (EditText)findViewById(R.id.edit_text_name);
+        mPhoneEditText = (EditText)findViewById(R.id.edit_text_phone);
 
         mCreateAccountButton = findViewById(R.id.button_create_account);
 
@@ -52,7 +58,6 @@ public class CreateAccountActivity  extends AppCompatActivity {
             public void onClick(View v) {
                 // 계정 생성
                 createAccount();
-
             }
         });
 
@@ -61,6 +66,8 @@ public class CreateAccountActivity  extends AppCompatActivity {
     private void createAccount(){
         String email = mIdEditText.getText().toString();
         String password = mPasswordEditText.getText().toString();
+        String name = mNameEditText.getText().toString();
+        String phone = mPhoneEditText.getText().toString();
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -69,7 +76,7 @@ public class CreateAccountActivity  extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(tag, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            store_user_info(email, password, name, phone);
                             gotoLogin();
                             finish();
                         } else {
@@ -80,8 +87,15 @@ public class CreateAccountActivity  extends AppCompatActivity {
                 });
     }
 
+    //로그인화면으로 이동
     private void gotoLogin(){
         Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    //파이어스토어에 회원정보 저장
+    public void store_user_info(String id, String password, String name, String phone){
+        User userInfo = new User(name, id, password, phone);
+        db.collection("User").document(mAuth.getCurrentUser().getUid()).set(userInfo);
     }
 }
