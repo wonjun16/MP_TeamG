@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -38,10 +40,21 @@ public class MainActivity extends AppCompatActivity {
     int rowIndex;
     ArrayList<CircleButton> boardList;
 
+    private FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Initialize User
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        //로그인 상태가 아닐때
+        if(user == null){
+            goToLogin();
+            finish();
+        }
 
         // 플로팅 메뉴 관련 변수 선언
         floatingMenu = (FloatingActionsMenu) findViewById(R.id.floatingMenu);
@@ -62,10 +75,6 @@ public class MainActivity extends AppCompatActivity {
         rowIndex = -1;
         boardList = new ArrayList<>();
 
-        floatingMenu.setVisibility(View.VISIBLE);
-
-
-
         plusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,27 +93,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 로그아웃 버튼 동작
-                if (v.getId() == R.id.logoutBtn) {
-                    Intent logoutIntent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(logoutIntent);
-                    finish();
-                }
+                FirebaseAuth.getInstance().signOut();
+                goToLogin();
+                finish();
             }
         });
-
-//        // 로그인 액티비티가 넘긴 인텐트에서 유저 아이디와 패스워드 추출
-//        Intent intent = getIntent();
-//        String username = intent.getStringExtra("username");
-//        String password = intent.getStringExtra("password");
-
-//        //관리자로 로그인 시 floating menu 활성화
-//        if (managerLogin(username, password) == true) {
-//            plusBtn.setVisibility(View.VISIBLE);
-//            deleteBtn.setVisibility(View.VISIBLE);
-//        } else {
-//            plusBtn.setVisibility(View.GONE);
-//            deleteBtn.setVisibility(View.GONE);
-//        }
 
         //타이틀을 누르면 메인 엑티비티로 이동하는 코드
         TextView titleTextView = findViewById(R.id.title);
@@ -120,17 +113,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    //관리자 아이디로 로그인 했을 경우 : true / else : false
-//    private boolean managerLogin(String username, String password) {
-//        String admin_id = (String) "admin";
-//        String admin_pw = (String) "1234";
-//
-//        if ((username.equals(admin_id)) && (password.equals(admin_pw))) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
+    private void goToLogin(){
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
 
     //사용자별 게시판으로 이어지는 원형 버튼 생성
     private void createBoard() {
@@ -143,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
         circleButton.setColorFilter(Color.WHITE);
         circleButton.setColor(Color.GRAY);
         boardList.add(circleButton);
-
 
         circleButton.setOnClickListener(new View.OnClickListener() {
             @Override

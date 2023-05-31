@@ -162,6 +162,7 @@ public class LoginActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //메인 액티비티 이동
                                 startMain();
+                                finish();
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(tag, "signInWithEmail:failure", task.getException());

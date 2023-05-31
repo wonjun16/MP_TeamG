@@ -53,9 +53,6 @@ public class CreateAccountActivity  extends AppCompatActivity {
                 // 계정 생성
                 createAccount();
 
-                // 로그인 액티비티로 넘어가는 코드
-                Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -73,13 +70,18 @@ public class CreateAccountActivity  extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(tag, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
+                            gotoLogin();
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(tag, "createUserWithEmail:failure", task.getException());
-                            //updateUI(null);
                         }
                     }
                 });
+    }
+
+    private void gotoLogin(){
+        Intent intent = new Intent(CreateAccountActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 }
