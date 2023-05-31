@@ -65,7 +65,7 @@ public class ListActivity extends AppCompatActivity {
                 Toast.makeText(ListActivity.this, adapterView.getItemAtPosition(i)+ " 클릭", Toast.LENGTH_SHORT).show();
 
 // 게시물의 번호와 userid를 가지고 DetailActivity 로 이동
-                Intent intent = new Intent(ListActivity.this, detailActivity.class);
+                Intent intent = new Intent(ListActivity.this,DetailActivity.class);
                 intent.putExtra("board_seq", seqList.get(i));
                 intent.putExtra("userid", userid);
                 startActivity(intent);
