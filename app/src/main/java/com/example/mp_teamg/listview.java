@@ -28,7 +28,8 @@ public class ListActivity extends AppCompatActivity {
     private ArrayList<String> seqList = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapter;
 
-    private DatabaseReference databaseRef;
+    private FirebaseFirestore firestore;
+    private CollectionReference boardsCollection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,44 +64,46 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-        // Firebase Realtime Database의 "boards" 레퍼런스를 가져옴
-        databaseRef = FirebaseDatabase.getInstance().getReference("boards");
+        // Firestore 인스턴스 및 "boards" 컬렉션 레퍼런스 가져오기
+        firestore = FirebaseFirestore.getInstance();
+        boardsCollection = firestore.collection("boards");
 
         // 게시물 리스트를 실시간으로 감시하고 업데이트를 수신함
-        databaseRef.addChildEventListener(new ChildEventListener() {
+        boardsCollection.addSnapshotListener(this, new com.google.firebase.firestore.EventListener<QuerySnapshot>() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                String seq = dataSnapshot.getKey();
-                String title = dataSnapshot.child("title").getValue(String.class);
-                titleList.add(title);
-                seqList.add(seq);
-                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-                // 게시물이 변경된 경우 업데이트 처리를 수행.
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                String seq = dataSnapshot.getKey();
-                int index = seqList.indexOf(seq);
-                if (index >= 0) {
-                    seqList.remove(index);
-                    titleList.remove(index);
-                    arrayAdapter.notifyDataSetChanged();
+            public void onEvent(QuerySnapshot querySnapshot, FirebaseFirestoreException e) {
+                if (e != null) {
+                    // 오류 처리
+                    return;
                 }
-            }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
-                // 게시물의 순서가 변경된 경우 처리
-            }
+                for (DocumentChange documentChange : querySnapshot.getDocumentChanges()) {
+                    QueryDocumentSnapshot documentSnapshot = documentChange.getDocument();
+                    String seq = documentSnapshot.getId();
+                    String title = documentSnapshot.getString("title");
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // 데이터베이스 읽기/쓰기 실패
+                    switch (documentChange.getType()) {
+                        case ADDED:
+                            // 게시물이 추가된 경우
+                            titleList.add(title);
+                            seqList.add(seq);
+                            break;
+                        case MODIFIED:
+                            // 게시물이 수정된 경우
+                            // 필요에 따라 업데이트 처리를 수행
+                            break;
+                        case REMOVED:
+                            // 게시물이 삭제된 경우
+                            int index = seqList.indexOf(seq);
+                            if (index >= 0) {
+                                seqList.remove(index);
+                                titleList.remove(index);
+                            }
+                            break;
+                    }
+                }
+
+                arrayAdapter.notifyDataSetChanged();
             }
         });
     }

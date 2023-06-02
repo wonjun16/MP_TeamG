@@ -57,10 +57,10 @@
                 android:padding="16dp"
                 android:text="내용"/>
 
-        <TextView
+        <ScrollView
             android:id="@+id/content_tv"
             android:layout_width="match_parent"
-            android:layout_height="520dp"
+            android:layout_height="wrap_content"
             android:background="#eeeeee"
             android:padding="16dp"
             android:text="작성 내용" />
@@ -71,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:orientation="vertical"/>
-        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
