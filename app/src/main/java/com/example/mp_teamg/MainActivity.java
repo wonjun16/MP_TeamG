@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionsMenu floatingMenu;
     FloatingActionButton plusBtn;
     FloatingActionButton deleteBtn;
-
     FloatingActionButton logoutButton;
 
     //board 동적으로 생성을 위한 변수
@@ -75,13 +74,15 @@ public class MainActivity extends AppCompatActivity {
         rowIndex = -1;
         boardList = new ArrayList<>();
 
+        //사용자 보드 추가하는 버튼
         plusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createBoard();
+                createAddUserPopUp();
             }
         });
 
+        //사용자 보드 삭제하는 버튼
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //로그아웃 버튼
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,6 +150,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void deleteBoard() {
 
+    }
+
+    //사용자 보드 추가 버튼 누를 시 어떤 사용자에게 연결할지 고를 팝업창 띄움
+    private void createAddUserPopUp(){
+        Intent intent = new Intent(MainActivity.this, AddUserPage.class);
+        startActivity(intent);
     }
 
     //primary id로 어느 사람에게 연결될건지 결정
